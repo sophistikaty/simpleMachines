@@ -1,21 +1,10 @@
 
 $(document).ready(function(){
 
-	// Function to prevent fixed-position side nav from scrolling left
-	// Toggles on mouse right-click
+//-------Function to change #clues html based on what user hovers over
 
-	$('#sideNav').mousedown(function(ev){
-	    if(ev.which == 3)
-	    {
-	    	$('#sideNav').toggleClass('stayLeft');
-	    }
-	});
-
-//Function to change #clues html based on what user hovers over
-
-	// Creates an array full of objects, or nachines, that are working in the app.
-	// This makes it easier to add or remove without having
-	// to change them in multiple places.
+	// Creates an array full of objects, or machines, that are working in the app.
+	// This makes it easier to add or remove without having  to change them in multiple places.
 
 	var machines = [{
 	        name     : 'welcome',
@@ -34,15 +23,7 @@ $(document).ready(function(){
 	    }
 	];
 
-	// var buttons = [{
-	//         name     : 'Page Tour Toggle',
-	//         id       : 'pgTourToggle',
-	//         action   : ''
-	//     },
-
-	// ];
-
-	// Listen for hover events. when an event happens, it runs contentChanger()
+	//----- Listen for hover events. when an event happens, it runs contentChanger()
 
 	function hoverView(){
 
@@ -60,9 +41,6 @@ $(document).ready(function(){
 		        setTimeout(function() {
 			     clues.classList.remove("highlight");
 			    }, 1000);
-			 // if (this.name === 'Page Tour') {
-			 	
-			 // }
 	    }
 				document.getElementById("pgTourToggle").onclick = function(ev){
 					console.log(ev);
@@ -72,6 +50,22 @@ $(document).ready(function(){
 			 		 document.getElementById('Off').classList.toggle("hidden");
 			 	}
 
+	 	for (var i = 0; i < machines.length; i++) {
+	    	console.log(machines[i]);
+	        document.getElementById(machines[i].id).onmouseover = contentChanger.bind(machines[i]);
+	        
+	    }
+
+//--- Will possibly emulate the machines object array with something similar for buttons-------------
+
+	// var buttons = [{
+	//         name     : 'Page Tour Toggle',
+	//         id       : 'pgTourToggle',
+	//         action   : ''
+	//     },
+
+	// ];
+
 	    // function buttonAction(){
 	    // 	document.getElementById('clues').toggleClass('hidden');
 	    // }
@@ -80,12 +74,6 @@ $(document).ready(function(){
 	    // any of these elements are clicked, we bind that object to the
 	    // contentChanger() function. This way it can access its key value
 	    // pairs when we want to insert the HTML into the DOM.
-
-	    for (var i = 0; i < machines.length; i++) {
-	    	console.log(machines[i]);
-	        document.getElementById(machines[i].id).onmouseover = contentChanger.bind(machines[i]);
-	        
-	    }
 
 	 //    for (var i = 0; i < buttons.length; i++) {
 		// 	console.log(buttons[i]);
@@ -97,8 +85,18 @@ $(document).ready(function(){
 
 	 hoverView();
 
+//------ Function to prevent fixed-position side nav from scrolling left----------------
+	// Toggles on mouse right-click
 
-	// ------ Ajax Social feeds: "En Progresse" ---------------
+	$('#sideNav').mousedown(function(ev){
+	    if(ev.which == 3)
+	    {
+	    	$('#sideNav').toggleClass('stayLeft');
+	    }
+	});
+
+
+// ------ Ajax Social feeds: "En Progresse" ---------------
 // function insta() {
 //   var hashtag = 'food';
 //   if (hashtag) {
