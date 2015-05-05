@@ -11,10 +11,20 @@ $(document).ready(function(){
 	        id       : 'header',
 	        content  : '<h1>welcome to simple machines</h1><p>Hover over things on the page to find out what they can do.</p>'
 	    },
+	    {
+	        name     : 'transitional sidebar',
+	        id       : 'sidebar',
+	        content  : '<h1>transitional sidebar</h1><p>Easy menu access with less dedicated real estate.</p>'
+	    },
 		{
 	        name     : 'fixed-position side-nav',
 	        id       : 'sideNav',
 	        content  : '<h1>fixed-position side-nav</h1><p>Use the fixed-position side nav arrows to jump to the top or bottom of the page.</p>'
+	    },
+	     {
+	        name     : 'picture yourself',
+	        id       : 'pic-yoself',
+	        content  : '<h1>picture yourself in this website</h1><p>Use the form fields to make changes and see what this site would look like with your customizations.</p>'
 	    },
 	    {
 	        name     : 'Page Tour',
@@ -33,7 +43,7 @@ $(document).ready(function(){
 
 	    function contentChanger(ev){
 	    	// console.log(ev);
-	     //    console.log('this is '+this.name);
+	        console.log('this is '+this.id);
 	        document.getElementById('clues').innerHTML = this.content;
 	        var clues = document.getElementById('clues');
 	        clues.classList.add("highlight");
@@ -50,9 +60,17 @@ $(document).ready(function(){
 			 		 document.getElementById('Off').classList.toggle("hidden");
 			 	}
 
+	 	function ignition(ev){
+	 		// console.log(ev);
+	        console.log('this is '+this.id);
+	        var start = this.id;
+
+	 	}
+
 	 	for (var i = 0; i < machines.length; i++) {
 	    	console.log(machines[i]);
 	        document.getElementById(machines[i].id).onmouseover = contentChanger.bind(machines[i]);
+	        document.getElementById(machines[i].id).onclick = ignition.bind(machines[i]);
 	        
 	    }
 
