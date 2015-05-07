@@ -143,9 +143,10 @@ div#mainArea {
   padding: 10%;
 }
 div#clues {
-     padding: 10%;
-  font-size: 11px;
+  padding: 10%;
+  font-size: 10px;
   margin: 10%;
+  height: 100px;
 }
 
 #clues h1 {
@@ -181,6 +182,10 @@ button#pgTourToggle:hover {
 
 button#pgTourToggle.go:hover {
 	background: blue;
+}
+
+div#session {
+	margin: 85px 15px;
 }
 
 .hidden {
