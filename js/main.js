@@ -27,7 +27,12 @@ $(document).ready(function(){
 	        content  : '<h1>picture yourself in this website</h1><p>Use the form fields to make changes and see what this site would look like with your customizations.</p>'
 	    },
 	    {
-	        name     : 'Page Tour',
+	        name     : 'session storage',
+	        id       : 'session',
+	        content  : '<h1>session storage</h1><p>Keep or ignore all kinds of information about what you do online. Turn it on or off with the click of a button.</p>'
+	    },
+	    {
+	        name     : 'page tour',
 	        id       : 'clues',
 	        content  : '<h1>page tour</h1><p>You can turn off the page tour or turn it back on at the top of the page anytime.</p>'
 	    }
@@ -43,7 +48,7 @@ $(document).ready(function(){
 
 	    function contentChanger(ev){
 	    	// console.log(ev);
-	        console.log('this is '+this.id);
+	        console.log('this is '+this.name);
 	        document.getElementById('clues').innerHTML = this.content;
 	        var clues = document.getElementById('clues');
 	        clues.classList.add("highlight");
@@ -62,13 +67,13 @@ $(document).ready(function(){
 
 	 	function ignition(ev){
 	 		// console.log(ev);
-	        console.log('this is '+this.id);
+	        console.log('this is '+this.name);
 	        var start = this.id;
 
 	 	}
 
 	 	for (var i = 0; i < machines.length; i++) {
-	    	console.log(machines[i]);
+	    	console.log(machines[i].name, machines[i]);
 	        document.getElementById(machines[i].id).onmouseover = contentChanger.bind(machines[i]);
 	        document.getElementById(machines[i].id).onclick = ignition.bind(machines[i]);
 	        
