@@ -1,8 +1,17 @@
 $(document).ready(function(){
 	//------- use sessionStorage to preserve form selections through portions of the form-fill process 
 	//that require page-reload, i.e. adding documents
+	
+
 	var remember = document.forms;
 	console.log(remember);
+
+	$('input[type="submit"]').click( function(e){
+
+		console.log (remember);
+		console.log(e);
+		debugger
+	})
 
 	remember.onchange = function(e){
 		console.log(e);
