@@ -2,16 +2,53 @@ $(document).ready(function(){
 	//------- use sessionStorage to preserve form selections through portions of the form-fill process 
 	//that require page-reload, i.e. adding documents
 	
+	var Piece = function (elem) {
+		this.onkeydown = see(e);
+	};
+
+	function Report(letters) {
+			this.letters = letters;
+		}
+
 
 	var remember = document.forms;
 	console.log(remember);
 
-	$('input[type="submit"]').click( function(e){
+	var sesh = document.getElementById('store-it');
+	console.log(sesh);
 
-		console.log (remember);
-		console.log(e);
-		debugger
-	})
+	var letters = [];
+
+	sesh.onkeydown = function(e){
+		console.log(e.keyIdentifier, e.keyCode);
+		if (e.keyIdentifier === "Enter") {
+			console.log('pressed enter');
+			var report = new Report(letters);
+			 	console.log(report);
+				sessionStorage.setItem('letters', JSON.stringify(report));
+
+			 	saveSession(remember);
+			 	console.log(e);
+		}
+		 // debugger
+		// console.log (sesh.value);
+		// console.log (remember);
+		letters.pop(sesh.value);
+		console.log('event down is ',e);
+		console.log('letters on down is ',letters);
+		
+		
+		
+	};
+
+	sesh.onkeyup = function(e){
+		letters.push(sesh.value);
+		console.log ('textval down is ',sesh.value);
+		console.log('letters on up is ',letters);
+
+		console.log('event up is ',e);
+		 // debugger
+	};
 
 	remember.onchange = function(e){
 		console.log(e);
@@ -23,12 +60,12 @@ $(document).ready(function(){
 				console.log('saving session');
 			console.log('arguments are ', remember);
 
-			var temp = sessionStorage.getItem('current');
+			var temp = sessionStorage.getItem('letters');
 			console.log(sessionStorage.current);
 			debugger
 			var viewCurrent = $.parseJSON(temp);
 
-				console.log('current session data is: ', viewCurrent);
+				console.log('letters session data is: ', viewCurrent);
 				
 			// var sl = system_level,
 			// 	sub = subsys,
@@ -67,11 +104,5 @@ $(document).ready(function(){
 				})
 
 		}saveSession(remember);
-
-		function Report(sysLev, subSys, configItem) {
-			this.system_level = sysLev;
-			this.subsys = subSys;
-			this.config_item_index = configItem;
-		}
 	}
 });

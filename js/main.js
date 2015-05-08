@@ -48,7 +48,7 @@ $(document).ready(function(){
 
 	    function contentChanger(ev){
 	    	// console.log(ev);
-	        console.log('this is '+this.name);
+	        // console.log('this is '+this.name);
 	        document.getElementById('clues').innerHTML = this.content;
 	        var clues = document.getElementById('clues');
 	        clues.classList.add("highlight");
@@ -67,13 +67,13 @@ $(document).ready(function(){
 
 	 	function ignition(ev){
 	 		// console.log(ev);
-	        console.log('this is '+this.name);
+	        console.log('starting '+this.name);
 	        var start = this.id;
 
 	 	}
 
 	 	for (var i = 0; i < machines.length; i++) {
-	    	console.log(machines[i].name, machines[i]);
+	    	// console.log(machines[i].name, machines[i]);
 	        document.getElementById(machines[i].id).onmouseover = contentChanger.bind(machines[i]);
 	        document.getElementById(machines[i].id).onclick = ignition.bind(machines[i]);
 	        
