@@ -12,10 +12,10 @@ $(document).ready(function(){
 
 
 	var remember = document.forms;
-	console.log(remember);
+	// console.log(remember);
 
 	var sesh = document.getElementById('store-it');
-	console.log(sesh);
+	// console.log(sesh);
 
 	var letters = [];
 
