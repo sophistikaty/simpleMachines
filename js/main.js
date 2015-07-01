@@ -32,6 +32,11 @@ $(document).ready(function(){
 	        content  : '<h1>session storage</h1><p>Keep or ignore all kinds of information about what you do online. Turn it on or off with the click of a button.</p>'
 	    },
 	    {
+	        name     : 'task rabbit\'s chess clock',
+	        id       : 'chessClock',
+	        content  : '<h1>task rabbit\'s chess clock</h1><p>Multi-client freelancer? Runner? Track the time spend on all the tasks you do, in any way you choose.</p>'
+	    },
+	    {
 	        name     : 'page tour',
 	        id       : 'clues',
 	        content  : '<h1>page tour</h1><p>You can turn off the page tour or turn it back on at the top of the page anytime.</p>'
