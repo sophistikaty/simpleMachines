@@ -42,9 +42,12 @@
 			</div>
 
 			<div id="chessClock">
-				<button id='chessClockBtn'>Task Rabbit's Chess Clock</button>
+				<form name="chessClock">
+					<button id='chessClockBtn' name='chessClockBtn'>Task Rabbit's Chess Clock</button>
 
-				<br><label class="hidden taskInput"> New Task: What do you want to time? <input id="taskInput" type="text" value="" class="taskInput hidden"></label>
+					<label for="taskInput" class="hidden taskInput" > <h4>New Task:</h4><p>What do you want to time?</p></label>
+					<input id="taskInput" name="taskInput" type="text" value="" class="taskInput hidden">
+				</form>
 			</div>
 
 			<div id="pic-yoself" class="hidden">

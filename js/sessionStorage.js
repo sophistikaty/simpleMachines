@@ -6,83 +6,113 @@ $(document).ready(function(){
 		this.onkeydown = see(e);
 	};
 
-	function Report(letters) {
-			this.letters = letters;
+	function Report(element) {
+		console.log('starting new report with element ', element);
+		this.name = element.name;
+		this.fields = [];
+			var nebulous = { "nebulous" : "" };
+				nebulousField = JSON.stringify(nebulous);
+		this.fields.push(nebulousField);
+
 		}
 
 
 	var remember = document.forms;
-	// console.log(remember);
+	// console.log('remember is ',remember);
 
-	var sesh = document.getElementById('store-it');
-	// console.log(sesh);
+	for (i=0; i < remember.length; i++){
+		var form = remember[i];
+			formChildren = form.children;
+			console.log('form is ', form);
 
-	var letters = [];
+			var report = new Report(form);
 
-	sesh.onkeydown = function(e){
-		console.log(e.keyIdentifier, e.keyCode);
-		if (e.keyIdentifier === "Enter") {
-			console.log('pressed enter');
-			var report = new Report(letters);
-			 	console.log(report);
-				sessionStorage.setItem('letters', JSON.stringify(report));
+			for(i=0;i<formChildren.length;i++){
+				console.log('report and report.fields inside children loop is ',report,  report.fields);
+				var name = formChildren[i].name;
+					id = formChildren[i].id
 
-			 	saveSession(remember);
-			 	console.log(e);
-		}
-		 // debugger
-		// console.log (sesh.value);
-		// console.log (remember);
-		letters.pop(sesh.value);
-		console.log('event down is ',e);
-		console.log('letters on down is ',letters);
+					if (name !== undefined){
+
+						childField = '{ "'+name+'" : \"\" }';
+						report.fields.push(childField);
+					}
+
+				formChildren[i].classList.add('store-it');
+				
+				// console.log('formChildren[i] is ', formChildren[i]);
+			}
+			// var fields = JSON.parse(report.fields);
+			// console.log('fields are ', fields);
+			// console.log('report fields are ', report.fields, fields);
+			sessionStorage.setItem(report.name, report.fields);
+			console.log('report and session storage after children loop is ',report,  sessionStorage);
+
+			var sesh = document.getElementsByClassName('store-it');
+			// console.log('sesh is ',sesh);
+
+			for( i = 0 ; i < sesh.length; i++ ){
+
+				var seshElement = sesh[i];
+				// console.log('individual seshElement is ', seshElement);
+				SeshTracker(seshElement, report);
+			}
+	}
+
+	
+
+	function SeshTracker (element, report){
+
+		var letters = [];
 		
-		
-		
-	};
+			par = element.parentElement;
+			sessionStoreName = par.name;
+			console.log('element parent and id are ',par, sessionStoreName);
+			sessionSection = sessionStorage.getItem(sessionStoreName);	
+				console.log('getting session section ', sessionSection);
 
-	sesh.onkeyup = function(e){
-		letters.push(sesh.value);
-		console.log ('textval down is ',sesh.value);
-		console.log('letters on up is ',letters);
+		element.onkeydown = function(e){
+			// console.log(e.keyIdentifier, e.keyCode);
+			if (e.keyIdentifier === "Enter") {
+				e.preventDefault();
 
-		console.log('event up is ',e);
-		 // debugger
-	};
+				 	saveSession(remember);
+				 	console.log(e);
+			}
 
-	remember.onchange = function(e){
-		console.log(e);
-		
-		//	Function to make session data available if it exists, and record for changes to session data before page re-load
+			letters.pop(element.value);
+			console.log('event down is ',e);
+			console.log('letters on down is ',letters);
+			console.log ('textval down is ',element.value);
+		};
 
-		function saveSession(remember){
+
+		element.onkeyup = function(e){
+			letters.push(element.value);
+			console.log('letters on up is ',letters);
+
+			console.log('event up is ',e);
+
+			var storeFields = sessionSection.split(",");
+				field = JSON.parse(storeFields[0]);
+			console.log('got field ready for update after event listener ', field);
+			// return letters;
+			 
+		};
+
+	}
+
+	function saveSession(remember){
 
 				console.log('saving session');
 			console.log('arguments are ', remember);
 
 			var temp = sessionStorage.getItem('letters');
-			console.log(sessionStorage.current);
-			debugger
+			console.log('sessionStorage is ',sessionStorage);
 			var viewCurrent = $.parseJSON(temp);
 
 				console.log('letters session data is: ', viewCurrent);
 				
-			// var sl = system_level,
-			// 	sub = subsys,
-			// 	cfi = config_item_index; 
-			
-			// sl.value = viewCurrent.system_level;
-			// sub.value = viewCurrent.subsys;
-			// cfi.value = viewCurrent.config_item_index;
-			
-			// console.log(sl.value, sl, sub.value, sub, cfi.value, cfi );
-
-			// var div = '<div style="background: gray; color: white; font-size: 15px; padding: 10px;"> <h1>Testing session-data-storage: </h1> <h5> data persists in this div and in the wbs box, but can be adapted cross-platform</h5><br> System level: '
-			// 			+ viewCurrent.system_level + ' .<br> Subsystem: '
-			// 			+ viewCurrent.subsys + ' .<br> Configured Item: '
-			// 			+ viewCurrent.config_item_index + '. </div>';
-			// $('div#show').html(div);
-			//e.preventDefault();
 
 			 $('.pgReload').click(function(e){
 			 	debugger
@@ -104,5 +134,12 @@ $(document).ready(function(){
 				})
 
 		}saveSession(remember);
-	}
+	
+	// remember.onchange = function(e){
+	// 	console.log(e);
+		
+		//	Function to make session data available if it exists, and record for changes to session data before page re-load
+
+		
+	// }
 });
