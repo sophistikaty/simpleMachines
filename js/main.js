@@ -27,9 +27,9 @@ $(document).ready(function(){
 	        content  : '<h1>picture yourself in this website</h1><p>Use the form fields to make changes and see what this site would look like with your customizations.</p>'
 	    },
 	    {
-	        name     : 'session storage',
-	        id       : 'session',
-	        content  : '<h1>session storage</h1><p>Keep or ignore all kinds of information about what you do online. Turn it on or off with the click of a button.</p>'
+	        name     : 'local storage',
+	        id       : 'local',
+	        content  : '<h1>local storage</h1><p>Keep or ignore all kinds of information about what you do online. Turn it on or off with the click of a button.</p>'
 	    },
 	    {
 	        name     : 'task rabbit\'s chess clock',

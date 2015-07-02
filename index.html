@@ -43,7 +43,7 @@
 
 			<div id="chessClock">
 				<form name="chessClock">
-					<button id='chessClockBtn' name='chessClockBtn'>Task Rabbit's Chess Clock</button>
+					<button type="button" id='chessClockBtn' name='chessClockBtn'>Task Rabbit's Chess Clock</button>
 
 					<label for="taskInput" class="hidden taskInput" > <h4>New Task:</h4><p>What do you want to time?</p></label>
 					<input id="taskInput" name="taskInput" type="text" value="" class="taskInput hidden">
@@ -60,8 +60,8 @@
 				
 			</div>
 
-			<div id="session">
-				<form id="sessionForm">
+			<div id="local">
+				<form id="localForm">
 					<label for='store-it'>Say something important</label><input id='store-it' name='store-it' type='text' value="">
 					<input class="pgReload" type="submit" value="Submit" />
 				</form>
@@ -80,7 +80,7 @@
 
         <!-- Our main JS file -->
         <script src="js/main.js"></script>
-        <script src="js/sessionStorage.js"></script>
+        <script src="js/localStorage.js"></script>
         <script src="js/chessClock.js"></script>
 </body>
 
