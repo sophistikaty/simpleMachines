@@ -1,65 +1,89 @@
-$(document).ready(function(){
+(function(){
 	//about chess clock
+	// var clock = new chessClock;
 
-	console.log('got clock js');
+	this.chessClock = function() {
 
-	var clockWrapper = document.getElementById('chessClock');
-	var clockButton = document.getElementById('chessClockBtn');
-	
+		console.log('got clock js');
 
-		// console.log('clockButton is ', clockButton);
+		var c = this;
 
-	var Task = function (clockSection){
-			// console.log('constructing new task at clockSection ',clockSection);
-		// var taskInput = document.createElement('input');
-		// 	taskInput.type = "text";
-		// 	taskInput.id = "taskInput";
-		// 	taskInput.label = "What do you want to time?"
-
-		// 	clockSection.appendChild(taskInput);
-
-
-		// 	console.log('taskInput is', taskInput);
-
-			// console.log('created new task', task);
+		c.wrapper = document.getElementById('chessClock');
+		c.trigger = document.getElementById('chessClockBtn');
+		c.class = "clock";
+		c.input = document.getElementsByClassName('taskInput');
+		
+		c.trigger.addEventListener("click",c.start(c));
+			console.log('this is ', this, c);
 	}
 
-	var Clock = function (clockSection){
-			console.log('constructing new clock at clockSection ',clockSection, this);
-		var clock = document.createElement('div');
-		clock.classList.add("clock");
-		clock.innerHTML = "<p>Hey, I'm a clock.</p>";
-		clockSection.appendChild(clock);
-
-		// console.log('created new clock', clock);
-	}
-	
-
-	function goClocks(){
-		// console.log('clockWrapper inside goClocks is', clockWrapper);
-		// console.log('clicked clock button fired goClocks on this ', this, event);
-
-		var taskInput = document.getElementsByClassName('taskInput');
-
-		for (i=0;i<taskInput.length; i++){
-			taskInput[i].classList.remove('hidden');
+	chessClock.prototype.update = function(clock, wrapper){
+			console.log('updating clock with clock and wrapper ', clock, wrapper);
 		}
-		// var clockWrapper = 
-		var clockSection = document.createElement('div');
-			clockSection.id = "clockSection";
-			clockWrapper.appendChild(clockSection);
-			console.log('clockSection is ', clockSection);
-		var task = new Task(clockSection);
-		var clock = new Clock(clockSection);
+			// console.log('clockButton is ', clockButton);
+
+		var Task = function (clockSection){
+				// console.log('constructing new task at clockSection ',clockSection);
+			// var taskInput = document.createElement('input');
+			// 	taskInput.type = "text";
+			// 	taskInput.id = "taskInput";
+			// 	taskInput.label = "What do you want to time?"
+
+			// 	clockSection.appendChild(taskInput);
+
+
+			// 	console.log('taskInput is', taskInput);
+
+				// console.log('created new task', task);
+		}
+
+		// var Clock = function (clockSection){
+				
+		// }
+
 		
 		
-		
-	}
 
-	function addTask () {
-		// console.log('clicked clock button fired goClocks');
+		chessClock.prototype.start = function(clockSection){
+			// console.log('clockWrapper inside goClocks is', clockWrapper);
+			console.log('clicked clock button fired goClocks on this ', this);
 
-	}
+			// var inputArr = this.input;
+			// 	console.log()
 
-	clockButton.onclick = goClocks;
-});
+			for (i=0; i < this.input.length ; i++){
+				var input = this.input[i];
+				input.classList.remove('hidden');
+			}
+			 
+			this.section = document.createElement('div');
+			this.section.classList.add( this.class );
+
+			var clocks = document.getElementsByClassName('"'+this.class+'"');
+			console.log('clocks array is ', clocks);
+
+				if(clocks !== undefined){
+
+					for (i=0; i<clocks.length; i++){
+						console.log('clocks[i] is ', clocks[i]);
+						this.section.id = "clock"+i;
+					}
+
+				}
+				else {
+					this.section.id = "clock"+0;
+				}
+
+				this.wrapper.appendChild(this.section);
+				console.log('this.section is ', this.section);
+			var task = new Task(this.section);
+			
+			
+		}
+
+
+		function addTask () {
+			// console.log('clicked clock button fired goClocks');
+
+		}
+})();

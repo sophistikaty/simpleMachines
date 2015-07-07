@@ -34,6 +34,7 @@ $(document).ready(function(){
 	    {
 	        name     : 'task rabbit\'s chess clock',
 	        id       : 'chessClock',
+	        init     : function(){var clock = new chessClock;},
 	        content  : '<h1>task rabbit\'s chess clock</h1><p>Multi-client freelancer? Runner? Track the time spend on all the tasks you do, in any way you choose.</p>'
 	    },
 	    {
@@ -53,7 +54,7 @@ $(document).ready(function(){
 
 	    function contentChanger(ev){
 	    	// console.log(ev);
-	        // console.log('this is '+this.name);
+	     //    console.log('this is ', this);
 	        document.getElementById('clues').innerHTML = this.content;
 	        var clues = document.getElementById('clues');
 	        clues.classList.add("highlight");
@@ -72,8 +73,12 @@ $(document).ready(function(){
 
 	 	function ignition(ev){
 	 		// console.log(ev);
-	        console.log('starting '+this.name);
-	        var start = this.id;
+	   //      console.log('starting '+this.name);
+
+	        var machine = this;
+	        console.log('starting ', machine);
+	        machine.init();
+	        
 
 	 	}
 

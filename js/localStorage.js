@@ -9,10 +9,10 @@ $(document).ready(function(){
 	function Report(element) {
 		// console.log('starting new report with element ', element);
 		this.name = element.name;
-		this.fields = [];
-			var nebulous = { "nebulous" : "" };
-				nebulousField = JSON.stringify(nebulous);
-		this.fields.push(nebulousField);
+		this.storageObject = {};
+		var storageObject = this.storageObject;
+		storageObject["nebulous"] = "";
+		// console.log('this inside report constructor is ', this);
 
 		}
 
@@ -33,19 +33,20 @@ $(document).ready(function(){
 					id = formChildren[i].id;
 
 					if (name !== undefined){
-
-						childField = '{ "'+name+'" : \"\" }';
-						report.fields.push(childField);
+						// console.log('report at child field push is ', report);
+						report.storageObject[name] = "";
+						// console.log('report AFTER child field push is ', report);
+						
 					}
 
 				formChildren[i].classList.add('store-it');
 				
 				// console.log('formChildren[i] is ', formChildren[i]);
 			}
-			// var fields = JSON.parse(report.fields);
+			var storageObject = JSON.stringify(report.storageObject);
 			// console.log('fields are ', fields);
-			// console.log('report fields are ', report.fields);
-			localStorage.setItem(report.name, report.fields);
+			// console.log('report storage object is  ', storageObject);
+			localStorage.setItem(report.name, storageObject);
 			// console.log('report and local storage after children loop is ',report,  localStorage);
 
 			var storeIt = document.getElementsByClassName('store-it');
@@ -62,34 +63,35 @@ $(document).ready(function(){
 	
 
 	function localTracker (element, report){
-		console.log('initiating tracker with element and report ', element, report);
+		// console.log('initiating tracker with element and report ', element, report);
 
 		var letters = [];
 		
 			par = element.parentElement;
 			localStoreName = par.name;
 			localStoreKey = element.name;
-			console.log('element parent and id are ',par, localStoreName);
+			// console.log('element parent and id are ',par, localStoreName);
 			localSection = localStorage.getItem(localStoreName);	
-			storeFields = localSection.split(",");
+			storeFields = JSON.parse(localSection);
+			// console.log('storeFields is ', storeFields);
 
-			fld = function (storeFields) {
+			// fld = function (storeFields) {
 
-				console.log('storeFields is ', storeFields);
+			// 	console.log('storeFields is ', storeFields);
 
-				for (i=0;i<storeFields.length; i++){
-					var field = storeFields[i];
-					console.log('field is ', field);
-						console.log('localStoreKey is ', localStoreKey);
+			// 	for (i=0;i<storeFields.length; i++){
+			// 		var field = storeFields[i];
+			// 		console.log('field is ', field);
+			// 			console.log('localStoreKey is ', localStoreKey);
 
-					if (field === localStoreKey){
-						console.log('match with ', field, localStoreKey);
+			// 		if (field === localStoreKey){
+			// 			console.log('match with ', field, localStoreKey);
 						
-					}
+			// 		}
 
-					return field;
-				}
-			}
+			// 		return field;
+			// 	}
+			// }
 			
 
 		element.onkeydown = function(e){
@@ -110,7 +112,7 @@ $(document).ready(function(){
 
 		element.onkeyup = function(e){
 			letters.push(element.value);
-			console.log('letters on up is ',letters);
+			// console.log('letters on up is ',letters);
 			str = letters[0];
 
 			// console.log('event up is ',e);
@@ -119,20 +121,26 @@ $(document).ready(function(){
 			// fld(storeFields);
 			// console.log('fld(storeFields) up is ',fld(storeFields));
 
-			for (i=0;i<storeFields.length; i++){
+			for (key in storeFields){
 
-				var field = JSON.parse(storeFields[i]);
-					for (var keys in field){
-						key = keys;
-						console.log('key is ', key);
-					}
-					console.log('field is ', field, key);
-					console.log('localStoreKey is ', localStoreKey);
+				// console.log('storeFields and key are ', storeFields , key );
+
+				var field = key;
+			
+					// console.log('field is ', field, key);
+					// console.log('localStoreKey is ', localStoreKey);
 
 				if (key === localStoreKey){
-					console.log('match with ', key, localStoreKey);
-					field[key] = str;
-					console.log('field updated after event listener ', field, str);
+					// console.log('match with ', key, localStoreKey);
+					var localObject = JSON.parse(localStorage.getItem(localStoreName));
+					// console.log('json parsed storageObject after field update is ', localObject);
+					localObject[key] = str;
+					
+					// console.log('localStorage set item localStoreName with json stringify local object '
+						// , localStoreName, JSON.stringify(localObject));
+					var updateString = JSON.stringify(localObject);
+					updateLocalStorage(localStoreName,updateString);
+					// console.log('localObject, str and localStorage updated after event listener ', localObject, str, localStorage);
 					
 				}
 			}
@@ -142,34 +150,39 @@ $(document).ready(function(){
 
 	}
 
+	function updateLocalStorage (field, value){
+		localStorage.setItem(field, value);
+		console.log('inside updateLocalStorage with updated: ',localStorage);
+	}
+
 	function savelocal(remember){
 
-				console.log('saving local');
-			console.log('arguments are ', remember);
+			// 	console.log('saving local');
+			// console.log('arguments are ', remember);
 
 			var temp = localStorage.getItem('letters');
-			console.log('localStorage is ',localStorage);
+			// console.log('localStorage is ',localStorage);
 			var viewCurrent = $.parseJSON(temp);
 
-				console.log('letters local data is: ', viewCurrent);
+				// console.log('letters local data is: ', viewCurrent);
 				
 
 			 $('.pgReload').click(function(e){
 			 	debugger
 			 	var report = new Report(system_level.value, subsys.value, config_item_index.value);
-			 	console.log(report);
+			 	// console.log(report);
 				localStorage.setItem('current', JSON.stringify(report));
 
 			 	savelocal(remember);
-			 	console.log(e);
+			 	// console.log(e);
 			 })
 
 			 $('.clearFormData').click(function(e){
 					debugger
 					var report = new Report("", "", "");
-			 		console.log(report);
+			 		// console.log(report);
 					localStorage.setItem('current',  JSON.stringify(report));
-					console.log('clearing local.current storage and re-loading window '+localStorage.current);
+					// console.log('clearing local.current storage and re-loading window '+localStorage.current);
 					window.location.reload();
 				})
 
