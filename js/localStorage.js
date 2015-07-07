@@ -28,7 +28,7 @@ $(document).ready(function(){
 			var report = new Report(form);
 
 			for(i=0;i<formChildren.length;i++){
-				// console.log('report and report.fields inside children loop is ',report,  report.fields);
+				
 				var name = formChildren[i].name;
 					id = formChildren[i].id;
 
@@ -63,7 +63,7 @@ $(document).ready(function(){
 	
 
 	function localTracker (element, report){
-		// console.log('initiating tracker with element and report ', element, report);
+		// console.log('initiating tracker with element and report and this ', element, report, this);
 
 		var letters = [];
 		
@@ -140,7 +140,7 @@ $(document).ready(function(){
 						// , localStoreName, JSON.stringify(localObject));
 					var updateString = JSON.stringify(localObject);
 					updateLocalStorage(localStoreName,updateString);
-					// console.log('localObject, str and localStorage updated after event listener ', localObject, str, localStorage);
+					
 					
 				}
 			}
@@ -151,6 +151,7 @@ $(document).ready(function(){
 	}
 
 	function updateLocalStorage (field, value){
+		console.log('field, value in update localStorage is ', field, value);
 		localStorage.setItem(field, value);
 		console.log('inside updateLocalStorage with updated: ',localStorage);
 	}

@@ -6,15 +6,15 @@
 
 		console.log('got clock js');
 
-		var c = this;
+		var clock = this;
 
-		c.wrapper = document.getElementById('chessClock');
-		c.trigger = document.getElementById('chessClockBtn');
-		c.class = "clock";
-		c.input = document.getElementsByClassName('taskInput');
+		clock.wrapper = document.getElementById('chessClock');
+		clock.trigger = document.getElementById('chessClockBtn');
+		clock.class = "clock";
+		clock.input = document.getElementsByClassName('taskInput');
 		
-		c.trigger.addEventListener("click",c.start(c));
-			console.log('this is ', this, c);
+		clock.trigger.addEventListener("click", clock.start(clock));
+			// console.log('this is ', this, c);
 	}
 
 	chessClock.prototype.update = function(clock, wrapper){
@@ -22,63 +22,40 @@
 		}
 			// console.log('clockButton is ', clockButton);
 
-		var Task = function (clockSection){
-				// console.log('constructing new task at clockSection ',clockSection);
-			// var taskInput = document.createElement('input');
-			// 	taskInput.type = "text";
-			// 	taskInput.id = "taskInput";
-			// 	taskInput.label = "What do you want to time?"
-
-			// 	clockSection.appendChild(taskInput);
-
-
-			// 	console.log('taskInput is', taskInput);
-
-				// console.log('created new task', task);
+		var Task = function (clock){
+				// console.log('constructing new task for clock ',clock);
+			
 		}
 
-		// var Clock = function (clockSection){
-				
-		// }
-
-		
-		
-
-		chessClock.prototype.start = function(clockSection){
+		chessClock.prototype.start = function(clock){
 			// console.log('clockWrapper inside goClocks is', clockWrapper);
-			console.log('clicked clock button fired goClocks on this ', this);
+			// console.log('clicked clock button fired chessClock.start fired on this clock ', clock);
+			var clocks = document.getElementsByClassName(clock.class);
+			// console.log('clocks array & length is ', clocks, clocks.length);
 
-			// var inputArr = this.input;
-			// 	console.log()
-
-			for (i=0; i < this.input.length ; i++){
-				var input = this.input[i];
+			for (i=0; i < clock.input.length ; i++){
+				var input = clock.input[i];
 				input.classList.remove('hidden');
 			}
 			 
-			this.section = document.createElement('div');
-			this.section.classList.add( this.class );
+			clock.element = document.createElement('div');
+			clock.element.classList.add( clock.class );
+			clock.element.id = "clock"+clocks.length;
+			clock.wrapper.appendChild(clock.element);
+				// console.log('this.element is ', clock.element);
 
-			var clocks = document.getElementsByClassName('"'+this.class+'"');
-			console.log('clocks array is ', clocks);
-
-				if(clocks !== undefined){
-
-					for (i=0; i<clocks.length; i++){
-						console.log('clocks[i] is ', clocks[i]);
-						this.section.id = "clock"+i;
-					}
-
-				}
-				else {
-					this.section.id = "clock"+0;
-				}
-
-				this.wrapper.appendChild(this.section);
-				console.log('this.section is ', this.section);
-			var task = new Task(this.section);
+			var task = new Task(clock);
 			
+			this.save(clock);
 			
+		}
+
+		chessClock.prototype.save = function(clock){
+			console.log('saving this clock with element', clock, clock.element.id);
+			console.log('saving to localStorage section', clock.wrapper.id);
+			var allClockDB = JSON.parse(localStorage.getItem(clock.wrapper.id));
+				console.log('need to access clock datasource from machines array here with engine.stack.chessClock reference ', engine.stack.chessClock);
+				console.log('allClockDB is ', allClockDB);
 		}
 
 
