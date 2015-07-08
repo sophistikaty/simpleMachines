@@ -18,12 +18,11 @@ $(document).ready(function(){
 
 
 	var remember = document.forms;
-	// console.log('remember is ',remember);
+		
 
 	for (i=0; i < remember.length; i++){
 		var form = remember[i];
 			formChildren = form.children;
-			// console.log('form is ', form);
 
 			var report = new Report(form);
 
@@ -33,7 +32,7 @@ $(document).ready(function(){
 					id = formChildren[i].id;
 
 					if (name !== undefined){
-						// console.log('report at child field push is ', report);
+						
 						report.storageObject[name] = "";
 						// console.log('report AFTER child field push is ', report);
 						
@@ -41,16 +40,24 @@ $(document).ready(function(){
 
 				formChildren[i].classList.add('store-it');
 				
-				// console.log('formChildren[i] is ', formChildren[i]);
 			}
 			var storageObject = JSON.stringify(report.storageObject);
-			// console.log('fields are ', fields);
-			// console.log('report storage object is  ', storageObject);
-			localStorage.setItem(report.name, storageObject);
-			// console.log('report and local storage after children loop is ',report,  localStorage);
+				persistedStorage = localStorage.getItem(report.name);
+
+				// console.log('persistedStorage is ', persistedStorage);
+				if(persistedStorage) {
+					// console.log('persistedStorage already exits, not over-writing fields: ', persistedStorage);
+				}
+				else {
+					// console.log('no persistedStorage: ', persistedStorage);
+					// console.log('setting localStorage item : ', report.name, storageObject);
+					localStorage.setItem(report.name, storageObject);
+				}
+				// debugger
+			
+			console.log('report and local storage after children loop is ',report,  localStorage);
 
 			var storeIt = document.getElementsByClassName('store-it');
-			// console.log('storeIt is ',storeIt, storeIt.length);
 
 			for( i = 0 ; i < storeIt.length ; i++ ){
 

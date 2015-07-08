@@ -8,43 +8,45 @@
 
 		Machines.prototype.stack = {
 			'welcome':{
-		        name     : 'welcome',
-		        id       : 'header',
-		        content  : '<h1>welcome to simple machines</h1><p>Hover over things on the page to find out what they can do.</p>'
+		        'name'     : 'welcome',
+		        'id'       : 'header',
+		        'content'  : '<h1>welcome to simple machines</h1><p>Hover over things on the page to find out what they can do.</p>'
 		    },
 		    'sidebar':{
-		        name     : 'transitional sidebar',
-		        id       : 'sidebar',
-		        content  : '<h1>transitional sidebar</h1><p>Easy menu access with less dedicated real estate.</p>'
+		        'name'     : 'transitional sidebar',
+		        'id'       : 'sidebar',
+		        'content'  : '<h1>transitional sidebar</h1><p>Easy menu access with less dedicated real estate.</p>'
 		    },
 			'sideNav':{
-		        name     : 'fixed-position side-nav',
-		        id       : 'sideNav',
-		        content  : '<h1>fixed-position side-nav</h1><p>Use the fixed-position side nav arrows to jump to the top or bottom of the page.</p>'
+		        'name'     : 'fixed-position side-nav',
+		        'id'       : 'sideNav',
+		        'content'  : '<h1>fixed-position side-nav</h1><p>Use the fixed-position side nav arrows to jump to the top or bottom of the page.</p>'
 		    },
 		    'pic-yoself': {
-		        name     : 'picture yourself',
-		        id       : 'pic-yoself',
-		        content  : '<h1>picture yourself in this website</h1><p>Use the form fields to make changes and see what this site would look like with your customizations.</p>'
+		        'name'     : 'picture yourself',
+		        'id'       : 'pic-yoself',
+		        'content'  : '<h1>picture yourself in this website</h1><p>Use the form fields to make changes and see what this site would look like with your customizations.</p>'
 		    },
 		    'local':{
-		        name     : 'local storage',
-		        id       : 'local',
-		        content  : '<h1>local storage</h1><p>Keep or ignore all kinds of information about what you do online. Turn it on or off with the click of a button.</p>'
+		        'name'     : 'local storage',
+		        'id'       : 'local',
+		        'content'  : '<h1>local storage</h1><p>Keep or ignore all kinds of information about what you do online. Turn it on or off with the click of a button.</p>'
 		    },
 		    'chessClock':{
-		        name     : 'task rabbit\'s chess clock',
-		        id       : 'chessClock',
-		        // datasource : function(){var allClocksDB = localStorage.getItem(chessClock); 
+		        'name'     : 'task rabbit\'s chess clock',
+		        'id'       : 'chessClock',
+		        // 'datasource' : function(){var allClocksDB = localStorage.getItem(chessClock); 
 		        // 			console.log('allClocksDB on machinesJS load is ', allClocksDB);
 		        // 		}(),
-		        init     : function(){var clock = new chessClock;},
-		        content  : '<h1>task rabbit\'s chess clock</h1><p>Multi-client freelancer? Runner? Track the time spend on all the tasks you do, in any way you choose.</p>'
+		        'init'     : function(){var start = new chessClock;
+	        							start.init();
+							},
+		        'content'  : '<h1>task rabbit\'s chess clock</h1><p>Multi-client freelancer? Runner? Track the time spend on all the tasks you do, in any way you choose.</p>'
 		    },
 		    'clues':{
-		        name     : 'page tour',
-		        id       : 'clues',
-		        content  : '<h1>page tour</h1><p>You can turn off the page tour or turn it back on at the top of the page anytime.</p>'
+		        'name'     : 'page tour',
+		        'id'       : 'clues',
+		        'content'  : '<h1>page tour</h1><p>You can turn off the page tour or turn it back on at the top of the page anytime.</p>'
 		    }
 		};
 
