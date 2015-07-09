@@ -217,6 +217,20 @@ a {
 	cursor: pointer;
 }
 
+div.clock {
+	background-color: blue;
+  height: 100px;
+  width: 100px;
+  margin: 10px;
+  float: left;
+}
+
+div.clock p {
+	color: #ffffff;
+  font-size: 17px;
+  padding: 10px;
+}
+
 /* Small Mobile devices - iphone, etc. */
 @media (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 2) { 
 

@@ -11,15 +11,31 @@
 	}
 
 	chessClock.prototype.init = function (){
+		console.log('inside clock init');
 		var allClocksDB = JSON.parse(localStorage.chessClock);
+		console.log('allClocksDB is ', allClocksDB);
     		clocks = allClocksDB.clocks;
-    	console.log('allClocksDB is ', allClocksDB, clocks);
-    	for (var i in clocks){
-    		console.log('this inside init is ',this, chessClock );
-    		console.log('clocks[i] is ', clocks[i]);
-    		this.build(clocks[i]);
-  
+
+    	// console.log('allClocksDB is ', allClocksDB, clocks);
+
+    	if (clocks !== undefined){
+    		for (var i in clocks){
+	    		console.log('clocks[i] is ', clocks[i]);
+	    		this.build(clocks[i]);
+	  
+	    	}
     	}
+    	else {
+    		console.log('creating new field "clocks" in allClocksDB ', allClocksDB);
+    		allClocksDB["clocks"] = {};
+    		allClocksDBstr = JSON.stringify(allClocksDB);
+				localStorage.setItem("chessClock", allClocksDBstr);
+				console.log('localStorage after clock field insert is ', localStorage);
+			var clock = new chessClock;
+			clock.build(clock);
+
+    	}
+    	
 	}
 
 	 chessClock.prototype.build = function (clock){
@@ -29,8 +45,8 @@
 		clock.class = "clock";
 		clock.input = document.getElementsByClassName('taskInput');
 		
-		// clock.trigger.addEventListener("click", clock.start(clock));
-			// console.log('this is ', this, c);
+		clock.trigger.addEventListener("click", this.start(clock));
+			console.log('this is ', this, clock);
 	}
 
 	chessClock.prototype.update = function(clock, wrapper){
@@ -58,6 +74,8 @@
 			clock.element.classList.add( clock.class );
 			clock.element.id = "clock"+clocks.length;
 			clock.id = clock.element.id.toString();
+			clock.element.innerHTML = "<p> Hey, I'm "+clock.id+"</p>";
+			
 			clock.wrapper.appendChild(clock.element);
 				// console.log('this.element is ', clock.element);
 
@@ -70,16 +88,16 @@
 		chessClock.prototype.save = function(clock){
 			console.log('saving this clock with element', clock, clock.element.id);
 			console.log('saving to localStorage section', clock.wrapper.id);
-			var allClockDB = JSON.parse(localStorage.getItem(clock.wrapper.id));
-				console.log('need to access clock datasource from machines array here with engine.stack.chessClock reference ', engine.stack.chessClock);
-				console.log('allClockDB is ', allClockDB, allClockDB.clocks);
-				if (allClockDB.clocks == undefined){
-					allClockDB["clocks"] = {};
-				}
-				allClockDB.clocks[clock.element.id] = clock;
-				console.log('allClockDB after is ', allClockDB, allClockDB.clocks);
-				allClockDBstr = JSON.stringify(allClockDB);
-				localStorage.setItem(clock.wrapper.id, allClockDBstr);
+			var allClocksDB = JSON.parse(localStorage.getItem(clock.wrapper.id));
+				// console.log('need to access clock datasource from machines array here with engine.stack.chessClock reference ', engine.stack.chessClock);
+				// console.log('allClockDB is ', allClockDB, allClockDB.clocks);
+				// if (allClocksDB.clocks == undefined){
+				// 	allClocksDB["clocks"] = {};
+				// }
+				allClocksDB.clocks[clock.element.id] = clock;
+				console.log('allClockDB after is ', allClocksDB, allClocksDB.clocks);
+				allClocksDBstr = JSON.stringify(allClocksDB);
+				localStorage.setItem(clock.wrapper.id, allClocksDBstr);
 				console.log('localStorage after all clock save is ', localStorage);
 		}
 

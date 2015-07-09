@@ -1,10 +1,4 @@
 $(document).ready(function(){
-	//------- use local Storage to preserve form selections through portions of the form-fill process 
-	//that require page-reload, i.e. adding documents
-	
-	// var Piece = function (elem) {
-	// 	this.onkeydown = see(e);
-	// };
 
 	function Report(element) {
 		// console.log('starting new report with element ', element);
@@ -26,7 +20,7 @@ $(document).ready(function(){
 
 			var report = new Report(form);
 
-			for(i=0;i<formChildren.length;i++){
+			for( i=0 ; i < formChildren.length ; i++ ){
 				
 				var name = formChildren[i].name;
 					id = formChildren[i].id;
@@ -55,7 +49,7 @@ $(document).ready(function(){
 				}
 				// debugger
 			
-			console.log('report and local storage after children loop is ',report,  localStorage);
+			// console.log('report and local storage after children loop is ',report,  localStorage);
 
 			var storeIt = document.getElementsByClassName('store-it');
 
@@ -78,7 +72,8 @@ $(document).ready(function(){
 			localStoreName = par.name;
 			localStoreKey = element.name;
 			// console.log('element parent and id are ',par, localStoreName);
-			localSection = localStorage.getItem(localStoreName);	
+			localSection = localStorage.getItem(localStoreName);
+			// console.log('localSection is ', localSection);	
 			storeFields = JSON.parse(localSection);
 			// console.log('storeFields is ', storeFields);
 
@@ -107,7 +102,7 @@ $(document).ready(function(){
 				e.preventDefault();
 
 				 	// savelocal(remember);
-				 	console.log(e);
+				 	// console.log(e);
 			}
 
 			letters.pop(element.value);
@@ -146,7 +141,7 @@ $(document).ready(function(){
 					// console.log('localStorage set item localStoreName with json stringify local object '
 						// , localStoreName, JSON.stringify(localObject));
 					var updateString = JSON.stringify(localObject);
-					updateLocalStorage(localStoreName,updateString);
+					updateLocalStorage(localStoreName , updateString);
 					
 					
 				}
@@ -163,38 +158,38 @@ $(document).ready(function(){
 		console.log('inside updateLocalStorage with updated: ',localStorage);
 	}
 
-	function savelocal(remember){
+	// function savelocal(remember){
 
-			// 	console.log('saving local');
-			// console.log('arguments are ', remember);
+	// 		// 	console.log('saving local');
+	// 		// console.log('arguments are ', remember);
 
-			var temp = localStorage.getItem('letters');
-			// console.log('localStorage is ',localStorage);
-			var viewCurrent = $.parseJSON(temp);
+	// 		var temp = localStorage.getItem('letters');
+	// 		// console.log('localStorage is ',localStorage);
+	// 		var viewCurrent = $.parseJSON(temp);
 
-				// console.log('letters local data is: ', viewCurrent);
+	// 			// console.log('letters local data is: ', viewCurrent);
 				
 
-			 $('.pgReload').click(function(e){
-			 	debugger
-			 	var report = new Report(system_level.value, subsys.value, config_item_index.value);
-			 	// console.log(report);
-				localStorage.setItem('current', JSON.stringify(report));
+	// 		 $('.pgReload').click(function(e){
+	// 		 	debugger
+	// 		 	var report = new Report(system_level.value, subsys.value, config_item_index.value);
+	// 		 	// console.log(report);
+	// 			localStorage.setItem('current', JSON.stringify(report));
 
-			 	savelocal(remember);
-			 	// console.log(e);
-			 })
+	// 		 	savelocal(remember);
+	// 		 	// console.log(e);
+	// 		 })
 
-			 $('.clearFormData').click(function(e){
-					debugger
-					var report = new Report("", "", "");
-			 		// console.log(report);
-					localStorage.setItem('current',  JSON.stringify(report));
-					// console.log('clearing local.current storage and re-loading window '+localStorage.current);
-					window.location.reload();
-				})
+	// 		 $('.clearFormData').click(function(e){
+	// 				debugger
+	// 				var report = new Report("", "", "");
+	// 		 		// console.log(report);
+	// 				localStorage.setItem('current',  JSON.stringify(report));
+	// 				// console.log('clearing local.current storage and re-loading window '+localStorage.current);
+	// 				window.location.reload();
+	// 			})
 
-		}savelocal(remember);
+	// 	}savelocal(remember);
 	
 	// remember.onchange = function(e){
 	// 	console.log(e);
