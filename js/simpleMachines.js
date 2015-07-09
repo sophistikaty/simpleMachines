@@ -41,7 +41,7 @@
 		        'init'     : function(){var start = new chessClock;
 	        							start.init();
 							},
-		        'content'  : '<h1>task rabbit\'s chess clock</h1><p>Multi-client freelancer? Runner? Track the time spend on all the tasks you do, in any way you choose.</p>'
+		        'content'  : '<h1>task rabbit\'s chess clock</h1><p>Freelancer? Runner? Chess aficionado? Track the time spend on all the tasks you do, in any way you choose.</p>'
 		    },
 		    'clues':{
 		        'name'     : 'page tour',

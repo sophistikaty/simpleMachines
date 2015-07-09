@@ -11,9 +11,9 @@
 	}
 
 	chessClock.prototype.init = function (){
-		console.log('inside clock init');
+		// console.log('inside clock init');
 		var allClocksDB = JSON.parse(localStorage.chessClock);
-		console.log('allClocksDB is ', allClocksDB);
+		// console.log('allClocksDB is ', allClocksDB);
     		clocks = allClocksDB.clocks;
 
     	// console.log('allClocksDB is ', allClocksDB, clocks);
@@ -21,7 +21,10 @@
     	if (clocks !== undefined){
     		for (var i in clocks){
 	    		console.log('clocks[i] is ', clocks[i]);
-	    		this.build(clocks[i]);
+	    		this.setup(clocks[i]);
+	    		console.log('create method here to tell setup and build methods that these \
+	    			are pre-existing clocks, and to build them on the dom automatically.\
+	    			use a variable setting passed into functions?');
 	  
 	    	}
     	}
@@ -30,23 +33,50 @@
     		allClocksDB["clocks"] = {};
     		allClocksDBstr = JSON.stringify(allClocksDB);
 				localStorage.setItem("chessClock", allClocksDBstr);
-				console.log('localStorage after clock field insert is ', localStorage);
+				// console.log('localStorage after clock field insert is ', localStorage);
 			var clock = new chessClock;
-			clock.build(clock);
+			clock.setup(clock);
 
     	}
     	
 	}
 
-	 chessClock.prototype.build = function (clock){
-		console.log('building clock ', clock);
-		clock.wrapper = document.getElementById('chessClock');
-		clock.trigger = document.getElementById('chessClockBtn');
-		clock.class = "clock";
-		clock.input = document.getElementsByClassName('taskInput');
+	 chessClock.prototype.setup = function (clock){
+
+	 	// console.log('setting up clock ', clock);
+
+	 	var setupInputs = document.getElementsByClassName('taskInput');
+	 	// console.log('setupInputs are ', setupInputs);
+	 	for (i=0; i < setupInputs.length ; i++){
+				var input = setupInputs[i];
+				input.classList.remove('hidden');
+			}
 		
-		clock.trigger.addEventListener("click", this.start(clock));
-			console.log('this is ', this, clock);
+		clock.wrapper = document.getElementById('chessClock');
+		clock.trigger = document.getElementById('newClock');
+		clock.class = "clock";
+		clock.input = document.getElementById('taskInput');
+			// console.log('clock.input is ', clock.input);
+		clock.name = clock.input.value;
+			// console.log('clock.trigger is ', clock.trigger);
+		var trigger = clock.trigger;
+		
+		trigger.onclick = checkSrcElement(clock, event);
+
+		function checkSrcElement(clock, e){
+			console.log('inside checkSrcElement, e.srcElement is ',e.srcElement);
+			var source = e.srcElement;
+				trigger = clock.trigger;
+			console.log('inside checkSrcElement, this, clock and clock.trigger are ',this, clock, clock.trigger);
+			if (source === trigger){
+				console.log ('matched, source and trigger are ', source, trigger);
+				clock.prototype.build(clock,e);
+			}
+			else{
+				console.log ('no match, source and trigger are ', source, trigger);
+			}
+			
+		}
 	}
 
 	chessClock.prototype.update = function(clock, wrapper){
@@ -59,16 +89,12 @@
 			
 		}
 
-		chessClock.prototype.start = function(clock){
-			// console.log('clockWrapper inside goClocks is', clockWrapper);
-			// console.log('clicked clock button fired chessClock.start fired on this clock ', clock);
+		chessClock.prototype.build = function(clock, e){
+			
+			console.log('even clicked clock trigger ', e, clock.trigger,' fired chessClock.build on clock ', clock);
 			var clocks = document.getElementsByClassName(clock.class);
 			// console.log('clocks array & length is ', clocks, clocks.length);
 
-			for (i=0; i < clock.input.length ; i++){
-				var input = clock.input[i];
-				input.classList.remove('hidden');
-			}
 			 
 			clock.element = document.createElement('div');
 			clock.element.classList.add( clock.class );

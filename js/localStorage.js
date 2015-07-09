@@ -153,9 +153,9 @@ $(document).ready(function(){
 	}
 
 	function updateLocalStorage (field, value){
-		console.log('field, value in update localStorage is ', field, value);
+		// console.log('field, value in update localStorage is ', field, value);
 		localStorage.setItem(field, value);
-		console.log('inside updateLocalStorage with updated: ',localStorage);
+		// console.log('inside updateLocalStorage with updated: ',localStorage);
 	}
 
 	// function savelocal(remember){
