@@ -18,7 +18,7 @@
 
     	// console.log('allClocksDB is ', allClocksDB, clocks);
 
-    	if (clocks !== undefined){
+    	if (clocks && clocks[0] !== undefined){
     		for (var i in clocks){
 	    		console.log('clocks[i] is ', clocks[i]);
 	    		this.setup(clocks[i]);
@@ -41,9 +41,16 @@
     	
 	}
 
+	chessClock.prototype.getDB = function(section){
+		var allClocksDB = JSON.parse(localStorage.getItem(section));
+			console.log('allClocksDB in getDB is ',allClocksDB);
+
+			return allClocksDB;
+	}
+
 	 chessClock.prototype.setup = function (clock){
 
-	 	// console.log('setting up clock ', clock);
+	 	console.log('setting up clock ', clock);
 
 	 	var setupInputs = document.getElementsByClassName('taskInput');
 	 	// console.log('setupInputs are ', setupInputs);
@@ -56,24 +63,22 @@
 		clock.trigger = document.getElementById('newClock');
 		clock.class = "clock";
 		clock.input = document.getElementById('taskInput');
-			// console.log('clock.input is ', clock.input);
 		clock.name = clock.input.value;
-			// console.log('clock.trigger is ', clock.trigger);
 		var trigger = clock.trigger;
 		
 		trigger.onclick = checkSrcElement(clock, event);
 
 		function checkSrcElement(clock, e){
-			console.log('inside checkSrcElement, e.srcElement is ',e.srcElement);
+			// console.log('inside checkSrcElement, e.srcElement is ',e.srcElement);
 			var source = e.srcElement;
 				trigger = clock.trigger;
-			console.log('inside checkSrcElement, this, clock and clock.trigger are ',this, clock, clock.trigger);
+			// console.log('inside checkSrcElement, this, clock and clock.trigger are ',this, clock, clock.trigger);
 			if (source === trigger){
-				console.log ('matched, source and trigger are ', source, trigger);
-				clock.prototype.build(clock,e);
+				// console.log ('matched, source and trigger are ', source, trigger);
+				clock.build(clock,e);
 			}
 			else{
-				console.log ('no match, source and trigger are ', source, trigger);
+				// console.log ('no match, source and trigger are ', source, trigger);
 			}
 			
 		}
@@ -85,25 +90,29 @@
 			// console.log('clockButton is ', clockButton);
 
 		var Task = function (clock){
-				// console.log('constructing new task for clock ',clock);
+				console.log('constructing new task for clock ',clock);
 			
 		}
 
 		chessClock.prototype.build = function(clock, e){
-			
-			console.log('even clicked clock trigger ', e, clock.trigger,' fired chessClock.build on clock ', clock);
-			var clocks = document.getElementsByClassName(clock.class);
-			// console.log('clocks array & length is ', clocks, clocks.length);
 
-			 
+			console.log('event clicked clock trigger ', e, clock.trigger,' fired chessClock.build on clock ', clock);
+			var clocks = document.getElementsByClassName(clock.class);
+			console.log('clocks array & length is ', clocks, clocks.length);
+
+			var DB = clock.getDB('chessClock');
+			 // console.log('var db is ', DB);
 			clock.element = document.createElement('div');
 			clock.element.classList.add( clock.class );
 			clock.element.id = "clock"+clocks.length;
+			clock.name = DB.newClock;
 			clock.id = clock.element.id.toString();
-			clock.element.innerHTML = "<p> Hey, I'm "+clock.id+"</p>";
+			clock.startBtn = '<button id="startClock'+clock.id+'"class="'+clock.class+'" type="button">Start</button>';
+			clock.stopBtn = '<button id="stopClock'+clock.id+'"class="'+clock.class+'" type="button">Stop</button>';
+			clock.element.innerHTML = '<p>'+clock.name+', <br>'+clock.id+'</p><br>'+clock.startBtn+clock.stopBtn;
 			
 			clock.wrapper.appendChild(clock.element);
-				// console.log('this.element is ', clock.element);
+				console.log('this.element is ', clock.element);
 
 			var task = new Task(clock);
 			
@@ -115,8 +124,8 @@
 			console.log('saving this clock with element', clock, clock.element.id);
 			console.log('saving to localStorage section', clock.wrapper.id);
 			var allClocksDB = JSON.parse(localStorage.getItem(clock.wrapper.id));
-				// console.log('need to access clock datasource from machines array here with engine.stack.chessClock reference ', engine.stack.chessClock);
-				// console.log('allClockDB is ', allClockDB, allClockDB.clocks);
+				console.log('need to access clock datasource from machines array here with engine.stack.chessClock reference ', engine.stack.chessClock);
+				console.log('allClockDB is ', allClocksDB, allClockDB.clocks);
 				// if (allClocksDB.clocks == undefined){
 				// 	allClocksDB["clocks"] = {};
 				// }
@@ -129,7 +138,7 @@
 
 
 		function addTask () {
-			// console.log('clicked clock button fired goClocks');
+			console.log('clicked clock button fired goClocks');
 
 		}
 })();
